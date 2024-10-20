@@ -17,7 +17,7 @@ class Project(TimeStampMixin, models.Model):
         ("ios", "IOS"),
         ("android", "Android")
     ]
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=50, unique=True)
     description = models.TextField()
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL,
@@ -25,6 +25,9 @@ class Project(TimeStampMixin, models.Model):
         related_name="projects"
     )
     type = models.CharField(max_length=20, choices=TYPE_CHOICES)
+
+    def __str__(self):
+        return self.name
 
 
 class Issue(TimeStampMixin, models.Model):
