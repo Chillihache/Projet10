@@ -1,15 +1,23 @@
 from django.db import models
 from django.conf import settings
+import uuid
 
 
-class Project(models.Model):
+class TimeStampMixin(models.Model):
+    created_time = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        abstract = True
+
+
+class Project(TimeStampMixin, models.Model):
     TYPE_CHOICES = [
         ("back_end", "Back-end"),
         ("front_end", "Front-end"),
         ("ios", "IOS"),
         ("android", "Android")
     ]
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=50)
     description = models.TextField()
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL,
@@ -17,10 +25,9 @@ class Project(models.Model):
         related_name="projects"
     )
     type = models.CharField(max_length=20, choices=TYPE_CHOICES)
-    created_time = models.DateTimeField(auto_now_add=True)
 
 
-class Issue(models.Model):
+class Issue(TimeStampMixin, models.Model):
     PRIORITY_CHOICES = [
         ("low", "LOW"),
         ("medium", "MEDIUM"),
@@ -36,7 +43,7 @@ class Issue(models.Model):
         ("in_progress", "In progress"),
         ("finished", "Finished")
     ]
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=100)
     description = models.TextField()
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL,
@@ -51,10 +58,10 @@ class Issue(models.Model):
     priority = models.CharField(max_length=20, choices=PRIORITY_CHOICES)
     type = models.CharField(max_length=20, choices=TYPE_CHOICES)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="to_do")
-    created_time = models.DateTimeField(auto_now_add=True)
 
 
-class Comment(models.Model):
+class Comment(TimeStampMixin, models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     description = models.TextField()
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL,
@@ -66,11 +73,13 @@ class Comment(models.Model):
         on_delete=models.CASCADE,
         related_name="comments_in_issue"
     )
-    created_time = models.DateTimeField(auto_now_add=True)
 
 
-class Contributor(models.Model):
-    user = models.ForeignKey(
+class Contribute(TimeStampMixin, models.Model):
+    class Meta:
+        unique_together = ("author", "project")
+
+    author = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         related_name="contributions"
@@ -80,3 +89,4 @@ class Contributor(models.Model):
         on_delete=models.CASCADE,
         related_name="contributors"
     )
+
