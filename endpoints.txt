@@ -1,0 +1,200 @@
+URL : /api/token/
+Method : POST
+Description : Obtain an access and refresh token using user credentials
+Request body :
+{
+    "username": "your_username",
+    "password": "your_password"
+}
+
+
+URL : /api/token/refresh
+Method : POST
+Description : Refresh the access token using a valid refresh token
+Request body :
+{
+    "refresh": "your_refresh_token"
+}
+
+
+URL : /api/users/
+Method : POST
+Description : Create a new user
+Request body :
+{
+    "username": "your_username",
+    "password": "your_password",
+    "age": 26,
+    "can_be_contacted": true,
+    "can_data_be_shared": false
+}
+
+
+Note : For all other requests, include the following in the headers:
+"Authorization": "Bearer your_access_token"
+
+
+URL : /api/users/
+Method : GET
+Description : Retrieve a list of all user
+
+
+URL : /api/users/{id}/
+Method : GET
+Description : Retrieve details of a user by id
+
+
+URL : /api/users/{id}/
+Method : DELETE
+Description : Delete a user by id
+
+
+URL : /api/users/{id}/
+Method : PATCH
+Description : Update a user by id (partial update)
+Request body :
+{
+    "age": 30
+}
+
+
+URL : /api/projects/
+Method : POST
+Description : Create a new project
+Request body :
+{
+    "name": "project_name",
+    "description": "project_description",
+    "type": "back_end", "front_end", "ios" or "android"
+}
+
+
+URL : /api/projects/
+Method : GET
+Description : Retrieve all projects
+
+
+URL : /api/projects/{id}/
+Method : GET
+Description : Retrieve details of a project by id
+
+
+URL : /api/projects/{id}/
+Method : DELETE
+Description : Delete a project by id
+
+
+URL : /api/projects/{id}/
+Method : PATCH
+Description : Update a project by id (partial update)
+Request body :
+{
+    "name": "new_name"
+}
+
+
+URL : /api/issues/
+Method : POST
+Description : Create a new issue
+Request body :
+{
+    "name": "issue_name",
+    "description": "issue_description",
+    "priority": "low", "medium" or "high",
+    "type": "bug", "feature" or "task",
+    "project": project_id,
+    "status": "to_do", "in_progress" or "finished",
+    "assigned_contributor": contributor_id
+}
+
+
+URL : /api/issues/
+Method : GET
+Description : Retrieve all issues
+
+
+URL /api/issues/{id}/
+Method : GET
+Description : Retrieve details of an issue by id
+
+
+URL : /api/issues/{id}/
+Method : DELETE
+Description : Delete an issue by id
+
+
+URL : /api/issues/{id}/
+Metthod : PATCH
+Description : Update an issue by id (partial update)
+Request body :
+{
+    "status": "finished"
+}
+
+
+URL : /api/comments/
+Method : POST
+Description : Create a new comment
+Request body :
+{
+    "description": "comment_description",
+    "issue": issue_id
+}
+
+
+URL : /api/comments/
+Method : GET
+Description : Retrieve all comments
+
+
+URL : /api/comments/{id}/
+Method : GET
+Description : Retrieve details of a comment by id
+
+
+URL : /api/comments/{id}/
+Method : DELETE
+Description : Delete a comment by id
+
+
+URL : /api/comments/{id}/
+Method : PATCH
+Description : Update a comment by id (partial update)
+Request body :
+{
+    "description": "new_description"
+}
+
+
+URL : /api/contributions/
+Method : POST
+Description : Create a new contribution
+Request body :
+{
+    "author": "new_contributor",
+    "project": project_id
+}
+
+
+URL : /api/contributions/
+Method : GET
+Description : Retrieve all contributions
+
+
+URL : /api/contributions/{id}/
+Method : GET
+Description : Retrieve details of a contribution by id
+
+
+URL : /api/contributions/{id}/
+Method : DELETE
+Description : Delete a contribution by id
+
+
+URL : /api/contributions/{id}/
+Method : PATCH
+Description : Update a contribution by id (partial update)
+Request body :
+{
+    "author": new_contributor_id
+}
