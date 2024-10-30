@@ -27,17 +27,17 @@ Activate the virtual environment :
 
     pipenv shell
 
-To set up the data base, make migrations :
-
-    python manage.py makemigrations
-    
-Then, migrate :
+To set up the data base :
 
     python manage.py migrate
 
 Create a superuser :
 
-    python manage.py createsuperuser
+    python manage.py shell
+    from authentication.models import User
+    user = User.objects.create_superuser(username="your_username", password="your_password", age=your_age)
+    user.save()
+    exit()
 
 Then, run the server :
 
