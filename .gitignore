@@ -6,6 +6,5 @@ __pycache__/
 *.pyc
 *.pyo
 *.sqlite3
-db.sqlite3	
-**/migrations/* 
+db.sqlite3
 .idea/
